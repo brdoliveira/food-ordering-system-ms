@@ -1,0 +1,25 @@
+# Maven
+**/target/
+.mvn/timing.properties
+
+# IDEs and editors
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+
+# Local environment configuration
+.env
+.env.*
+!.env.example
+
+# Local infrastructure state and logs
+infrastructure/volumes/
+infrastructure/**/data/
+postgres-data/
+kafka-data/
+*.log
