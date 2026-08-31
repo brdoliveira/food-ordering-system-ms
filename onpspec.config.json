@@ -1,0 +1,11 @@
+{
+  "testCommand": "node --test quality-tests",
+  "reporter": "tap",
+  "testGlobs": [
+    "quality-tests/**/*.test.mjs",
+    "**/src/test/**/*.java"
+  ],
+  "srcGlobs": [
+    "src/**"
+  ]
+}
