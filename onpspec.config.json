@@ -1,5 +1,5 @@
 {
-  "testCommand": "node --test \"quality-tests/*.test.mjs\"",
+  "testCommand": "node --test --test-reporter=tap \"quality-tests/*.test.mjs\"",
   "reporter": "tap",
   "testGlobs": [
     "quality-tests/**/*.test.mjs",
