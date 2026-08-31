@@ -16,7 +16,7 @@
 - Esforço: medio
 - Notas: usar placeholders do Spring com padrões de desenvolvimento, sem alterar nomes de tópicos ou portas padrão.
 
-## T-003 — Corrigir e completar a infraestrutura local [em-andamento]
+## T-003 — Corrigir e completar a infraestrutura local [concluida]
 - Refs: US-002, AC-005
 - Arquivos: infrastructure/docker-compose/common.yml, infrastructure/docker-compose/zookeeper.yml, infrastructure/docker-compose/kafka_cluster.yml, infrastructure/docker-compose/init_kafka.yml, quality-tests/local-infrastructure.test.mjs
 - Modelo: gpt-5.6-terra
