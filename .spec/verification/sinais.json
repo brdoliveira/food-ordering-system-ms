@@ -117,6 +117,15 @@
       "primeiraVez": "2026-08-31T20:48:45.204Z",
       "ultimaVez": "2026-08-31T20:56:01.809Z",
       "gitRev": "081ce3b"
+    },
+    "VERIFY_OBSOLETO::project-hardening::—": {
+      "codigo": "VERIFY_OBSOLETO",
+      "feature": "project-hardening",
+      "ref": "—",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-08-31T22:32:36.547Z",
+      "ultimaVez": "2026-08-31T22:32:36.548Z",
+      "gitRev": null
     }
   }
 }

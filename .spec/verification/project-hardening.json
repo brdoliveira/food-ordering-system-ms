@@ -1,7 +1,7 @@
 {
   "feature": "project-hardening",
-  "timestamp": "2026-08-31T22:31:47.605Z",
-  "gitRev": "0160f2d",
+  "timestamp": "2026-08-31T22:34:32.269Z",
+  "gitRev": null,
   "command": "node --test --test-reporter=tap \"quality-tests/*.test.mjs\"",
   "reporter": "tap",
   "exitCode": 0,
