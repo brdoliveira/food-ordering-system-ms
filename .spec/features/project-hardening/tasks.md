@@ -23,16 +23,14 @@
 - Esforço: alto
 - Notas: declarar uma única rede coerente, adicionar PostgreSQL com healthcheck e provar a configuração com `docker compose config`.
 
-## T-004 — Fortalecer invariantes monetárias [pendente]
-
+## T-004 — Fortalecer invariantes monetárias [em-andamento]
 - Refs: US-003, AC-006
 - Arquivos: common/common-domain/pom.xml, common/common-domain/src/main/java/com/food/ordering/system/domain/valueobject/Money.java, common/common-domain/src/test/java/com/food/ordering/system/domain/valueobject/MoneyTest.java, quality-tests/money-domain.test.mjs
 - Modelo: gpt-5.6-terra
 - Esforço: alto
 - Notas: normalizar escala na construção, rejeitar nulo e cobrir igualdade e operações com testes unitários.
 
-## T-005 — Documentar arquitetura e operação [pendente]
-
+## T-005 — Documentar arquitetura e operação [em-andamento]
 - Refs: US-004, AC-007
 - Arquivos: README.md, quality-tests/documentation.test.mjs
 - Modelo: gpt-5.6-luna
