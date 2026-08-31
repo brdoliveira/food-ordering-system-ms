@@ -1,0 +1,11 @@
+{
+  "feature": "project-hardening",
+  "timestamp": "2026-08-31T20:54:40.351Z",
+  "gitRev": "2811a8d",
+  "command": "node --test quality-tests",
+  "reporter": "tap",
+  "exitCode": 1,
+  "testsParsed": 0,
+  "results": {},
+  "principles": {}
+}

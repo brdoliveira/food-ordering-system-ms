@@ -5,118 +5,118 @@
       "codigo": "ARQUIVO_INEXISTENTE",
       "feature": "project-hardening",
       "ref": "T-001",
-      "ocorrencias": 6,
+      "ocorrencias": 12,
       "primeiraVez": "2026-08-31T20:48:45.145Z",
-      "ultimaVez": "2026-08-31T20:48:45.204Z",
-      "gitRev": null
+      "ultimaVez": "2026-08-31T20:54:41.272Z",
+      "gitRev": "2811a8d"
     },
     "ARQUIVO_INEXISTENTE::project-hardening::T-002": {
       "codigo": "ARQUIVO_INEXISTENTE",
       "feature": "project-hardening",
       "ref": "T-002",
-      "ocorrencias": 2,
+      "ocorrencias": 4,
       "primeiraVez": "2026-08-31T20:48:45.204Z",
-      "ultimaVez": "2026-08-31T20:48:45.204Z",
-      "gitRev": null
+      "ultimaVez": "2026-08-31T20:54:41.272Z",
+      "gitRev": "2811a8d"
     },
     "ARQUIVO_INEXISTENTE::project-hardening::T-003": {
       "codigo": "ARQUIVO_INEXISTENTE",
       "feature": "project-hardening",
       "ref": "T-003",
-      "ocorrencias": 1,
+      "ocorrencias": 2,
       "primeiraVez": "2026-08-31T20:48:45.204Z",
-      "ultimaVez": "2026-08-31T20:48:45.204Z",
-      "gitRev": null
+      "ultimaVez": "2026-08-31T20:54:41.272Z",
+      "gitRev": "2811a8d"
     },
     "ARQUIVO_INEXISTENTE::project-hardening::T-004": {
       "codigo": "ARQUIVO_INEXISTENTE",
       "feature": "project-hardening",
       "ref": "T-004",
-      "ocorrencias": 2,
+      "ocorrencias": 4,
       "primeiraVez": "2026-08-31T20:48:45.204Z",
-      "ultimaVez": "2026-08-31T20:48:45.204Z",
-      "gitRev": null
+      "ultimaVez": "2026-08-31T20:54:41.272Z",
+      "gitRev": "2811a8d"
     },
     "ARQUIVO_INEXISTENTE::project-hardening::T-005": {
       "codigo": "ARQUIVO_INEXISTENTE",
       "feature": "project-hardening",
       "ref": "T-005",
-      "ocorrencias": 1,
+      "ocorrencias": 2,
       "primeiraVez": "2026-08-31T20:48:45.204Z",
-      "ultimaVez": "2026-08-31T20:48:45.204Z",
-      "gitRev": null
+      "ultimaVez": "2026-08-31T20:54:41.272Z",
+      "gitRev": "2811a8d"
     },
     "AC_SEM_TESTE::project-hardening::AC-001": {
       "codigo": "AC_SEM_TESTE",
       "feature": "project-hardening",
       "ref": "AC-001",
-      "ocorrencias": 1,
+      "ocorrencias": 2,
       "primeiraVez": "2026-08-31T20:48:45.204Z",
-      "ultimaVez": "2026-08-31T20:48:45.204Z",
-      "gitRev": null
+      "ultimaVez": "2026-08-31T20:54:41.272Z",
+      "gitRev": "2811a8d"
     },
     "AC_SEM_TESTE::project-hardening::AC-002": {
       "codigo": "AC_SEM_TESTE",
       "feature": "project-hardening",
       "ref": "AC-002",
-      "ocorrencias": 1,
+      "ocorrencias": 2,
       "primeiraVez": "2026-08-31T20:48:45.204Z",
-      "ultimaVez": "2026-08-31T20:48:45.204Z",
-      "gitRev": null
+      "ultimaVez": "2026-08-31T20:54:41.272Z",
+      "gitRev": "2811a8d"
     },
     "AC_SEM_TESTE::project-hardening::AC-003": {
       "codigo": "AC_SEM_TESTE",
       "feature": "project-hardening",
       "ref": "AC-003",
-      "ocorrencias": 1,
+      "ocorrencias": 2,
       "primeiraVez": "2026-08-31T20:48:45.204Z",
-      "ultimaVez": "2026-08-31T20:48:45.204Z",
-      "gitRev": null
+      "ultimaVez": "2026-08-31T20:54:41.272Z",
+      "gitRev": "2811a8d"
     },
     "AC_SEM_TESTE::project-hardening::AC-004": {
       "codigo": "AC_SEM_TESTE",
       "feature": "project-hardening",
       "ref": "AC-004",
-      "ocorrencias": 1,
+      "ocorrencias": 2,
       "primeiraVez": "2026-08-31T20:48:45.204Z",
-      "ultimaVez": "2026-08-31T20:48:45.204Z",
-      "gitRev": null
+      "ultimaVez": "2026-08-31T20:54:41.272Z",
+      "gitRev": "2811a8d"
     },
     "AC_SEM_TESTE::project-hardening::AC-005": {
       "codigo": "AC_SEM_TESTE",
       "feature": "project-hardening",
       "ref": "AC-005",
-      "ocorrencias": 1,
+      "ocorrencias": 2,
       "primeiraVez": "2026-08-31T20:48:45.204Z",
-      "ultimaVez": "2026-08-31T20:48:45.204Z",
-      "gitRev": null
+      "ultimaVez": "2026-08-31T20:54:41.272Z",
+      "gitRev": "2811a8d"
     },
     "AC_SEM_TESTE::project-hardening::AC-006": {
       "codigo": "AC_SEM_TESTE",
       "feature": "project-hardening",
       "ref": "AC-006",
-      "ocorrencias": 1,
+      "ocorrencias": 2,
       "primeiraVez": "2026-08-31T20:48:45.204Z",
-      "ultimaVez": "2026-08-31T20:48:45.204Z",
-      "gitRev": null
+      "ultimaVez": "2026-08-31T20:54:41.272Z",
+      "gitRev": "2811a8d"
     },
     "AC_SEM_TESTE::project-hardening::AC-007": {
       "codigo": "AC_SEM_TESTE",
       "feature": "project-hardening",
       "ref": "AC-007",
-      "ocorrencias": 1,
+      "ocorrencias": 2,
       "primeiraVez": "2026-08-31T20:48:45.204Z",
-      "ultimaVez": "2026-08-31T20:48:45.204Z",
-      "gitRev": null
+      "ultimaVez": "2026-08-31T20:54:41.272Z",
+      "gitRev": "2811a8d"
     },
     "PRINCIPIO_VIOLADO::—::P-002": {
       "codigo": "PRINCIPIO_VIOLADO",
       "feature": "—",
       "ref": "P-002",
-      "ocorrencias": 4,
+      "ocorrencias": 8,
       "primeiraVez": "2026-08-31T20:48:45.204Z",
-      "ultimaVez": "2026-08-31T20:48:45.204Z",
-      "gitRev": null
+      "ultimaVez": "2026-08-31T20:54:41.272Z",
+      "gitRev": "2811a8d"
     }
   }
 }
