@@ -44,3 +44,11 @@
 - Modelo: gpt-5.6-terra
 - Esforço: alto
 - Notas: usar Testcontainers para iniciar PostgreSQL por suíte, registrar as propriedades dinâmicas no Spring e eliminar a dependência de um banco manual em `localhost`.
+
+## T-007 — Isolar PostgreSQL nos testes de pagamento [em-andamento]
+
+- Refs: US-001, AC-001
+- Arquivos: payment-service/payment-container/pom.xml, payment-service/payment-container/src/test/java/com/food/ordering/system/payment/service/domain/PaymentRequestMessageListenerTest.java
+- Modelo: gpt-5.6-terra
+- Esforço: alto
+- Notas: reutilizar a estratégia de Testcontainers validada em T-006, registrar as propriedades dinâmicas no Spring e eliminar a dependência restante de PostgreSQL em `localhost` no build completo.

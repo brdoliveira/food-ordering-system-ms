@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# executar-tarefas.sh — gerado por `onp-spec plano project-hardening` em 2026-08-31 21:28
+# executar-tarefas.sh — gerado por `onp-spec plano project-hardening` em 2026-08-31 22:05
 # NÃO edite à mão: mudou tasks.md ou a config, regenere o plano.
 #
 # uso:
@@ -14,7 +14,7 @@
 set -u
 set -o pipefail
 
-RUN_ID='food-ordering-system-ms-project-hardening-mthr38u2'
+RUN_ID='food-ordering-system-ms-project-hardening-mthsdxn3'
 FEATURE='project-hardening'
 BASE_BRANCH='spec/project-hardening'
 ENGINE='C:\Users\brufe\.agents\skills\onp-spec-driven\scripts\onp-spec.mjs'
@@ -232,6 +232,38 @@ Regras inegociáveis:
   return 1
 }
 
+# ── sequencial T-007 (ordem do tasks.md) ──
+executar_seq_T_007() {
+  info 'sequencial T-007 — Isolar PostgreSQL nos testes de pagamento'
+  if rodar_tarefa seq 'T-007' 'Você executa UMA tarefa da feature "project-hardening" (fluxo onp-spec, spec-anchored).
+Leia primeiro: .spec/features/project-hardening/spec.md, .spec/features/project-hardening/tasks.md e .spec/constituicao.md.
+
+Sua tarefa (somente ela):
+T-007 — "Isolar PostgreSQL nos testes de pagamento"
+  critérios/refs: AC-001 (Build completo funciona pelo Maven Wrapper)
+  arquivos permitidos (e seus testes): payment-service/payment-container/pom.xml, payment-service/payment-container/src/test/java/com/food/ordering/system/payment/service/domain/PaymentRequestMessageListenerTest.java
+  mensagem de commit: "T-007 project-hardening: Isolar PostgreSQL nos testes de pagamento"
+
+Regras inegociáveis:
+- Todo critério de aceite referenciado vira teste com @spec:AC-xxx no título.
+- NUNCA enfraqueça, pule (skip/todo) ou apague um teste para passar — teste pulado não é prova e o audit acusa.
+- Rode os testes localmente com `node --test quality-tests` até passarem.
+- NÃO edite tasks.md, NÃO rode onp-spec verify/audit e NÃO toque em outras tarefas — o orquestrador cuida disso.
+- Ao final de CADA tarefa: `git add` só no que você tocou e um commit próprio.' 'gpt-5.6-terra' high >> "$LOG_DIR/seq.log" 2>&1; then
+    # commit de segurança se o agente esqueceu (rastreabilidade > perfeição)
+    if [ -n "$(git status --porcelain)" ]; then
+      git add -A && git commit -q -m 'T-007 project-hardening: Isolar PostgreSQL nos testes de pagamento (auto-commit do plano)'
+    fi
+    marcar_concluidas T-007
+    verde "✔ T-007 concluída"
+    return 0
+  fi
+  vermelho "✘ T-007 falhou (log: $LOG_DIR/seq.log)"
+  amarelo "  reexecute só ela: bash .spec/features/project-hardening/executar-tarefas.sh --seq T-007"
+  FALHAS="$FALHAS T-007"
+  return 1
+}
+
 # ── gate: quem decide é a máquina ────────────────────────────────────
 rodar_gate() {
   echo
@@ -287,6 +319,7 @@ executar_tudo() {
   info "resumo geral de andamento: a cada 1 min aqui no terminal (e via: onp-spec resumo)"
   executar_seq_T_001 || true
   executar_seq_T_006 || true
+  executar_seq_T_007 || true
   encerrar tudo
 }
 
@@ -294,6 +327,7 @@ listar() {
   echo "execução: $RUN_ID (feature $FEATURE, branch $BASE_BRANCH)"
   echo "  seq       T-001 (sequencial)"
   echo "  seq       T-006 (sequencial)"
+  echo "  seq       T-007 (sequencial)"
   echo
   echo "reexecutar uma faixa:    --faixa <id>"
   echo "reexecutar sequencial:   --seq <T-xxx>"
@@ -330,6 +364,7 @@ case "$MODO" in
     case "$ALVO" in
       T-001) evento --tipo inicio --escopo "seq:T-001"; iniciar_resumos; executar_seq_T_001 || true; encerrar "seq:T-001" ;;
       T-006) evento --tipo inicio --escopo "seq:T-006"; iniciar_resumos; executar_seq_T_006 || true; encerrar "seq:T-006" ;;
+      T-007) evento --tipo inicio --escopo "seq:T-007"; iniciar_resumos; executar_seq_T_007 || true; encerrar "seq:T-007" ;;
       *) falhar "tarefa sequencial desconhecida: '$ALVO' — veja as disponíveis com --listar" ;;
     esac ;;
 esac

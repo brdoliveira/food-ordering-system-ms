@@ -1,12 +1,12 @@
 {
-  "runId": "food-ordering-system-ms-project-hardening-mthr38u2",
+  "runId": "food-ordering-system-ms-project-hardening-mthsdxn3",
   "feature": "project-hardening",
   "agent": "codex",
   "modo": "sequencial",
   "paralelizar": null,
   "modeloForcado": null,
   "esforcoForcado": null,
-  "geradoEm": "2026-08-31 21:28",
+  "geradoEm": "2026-08-31 22:05",
   "branchTrabalho": "spec/project-hardening",
   "baseDir": ".spec/features/project-hardening",
   "specDir": ".spec",
@@ -49,6 +49,20 @@
         "US-001",
         "AC-001"
       ]
+    },
+    {
+      "id": "T-007",
+      "titulo": "Isolar PostgreSQL nos testes de pagamento",
+      "modelo": "gpt-5.6-terra",
+      "esforco": "high",
+      "arquivos": [
+        "payment-service/payment-container/pom.xml",
+        "payment-service/payment-container/src/test/java/com/food/ordering/system/payment/service/domain/PaymentRequestMessageListenerTest.java"
+      ],
+      "refs": [
+        "US-001",
+        "AC-001"
+      ]
     }
   ],
   "concluidas": [
@@ -59,6 +73,7 @@
   ],
   "avisos": [
     "T-001 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar",
-    "T-006 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar"
+    "T-006 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar",
+    "T-007 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar"
   ]
 }

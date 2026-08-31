@@ -1,11 +1,11 @@
 # Plano de execução — project-hardening
 
-> gerado por `onp-spec plano` em 2026-08-31 21:28 — NÃO edite à mão;
+> gerado por `onp-spec plano` em 2026-08-31 22:05 — NÃO edite à mão;
 > mudou tasks.md ou a config? Regenere: `onp-spec plano project-hardening --sequencial`
 
 ## Resumo — o que vai acontecer
 
-- **modo SEQUENCIAL (escolha do usuário)**: 2 tarefa(s) pendente(s), UMA APÓS A OUTRA, na árvore principal (4 já concluída(s): T-002, T-003, T-004, T-005)
+- **modo SEQUENCIAL (escolha do usuário)**: 3 tarefa(s) pendente(s), UMA APÓS A OUTRA, na árvore principal (4 já concluída(s): T-002, T-003, T-004, T-005)
 - sem worktrees e sem paralelismo — cada tarefa roda numa janela de contexto limpa, na ordem do tasks.md
 - tudo acontece na branch de trabalho `spec/project-hardening`; levar para a main é decisão sua
 
@@ -13,6 +13,7 @@
 
 - ⚠ T-001 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar
 - ⚠ T-006 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar
+- ⚠ T-007 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar
 
 ## Ordem de execução (uma tarefa após a outra)
 
@@ -20,6 +21,7 @@
 |---|---|---|---|
 | T-001 | Tornar build, CI e repositório reproduzíveis | `gpt-5.6-terra` | medium |
 | T-006 | Isolar PostgreSQL nos testes de saga | `gpt-5.6-terra` | high |
+| T-007 | Isolar PostgreSQL nos testes de pagamento | `gpt-5.6-terra` | high |
 
 ## Gestão de branches e commits
 

@@ -38,13 +38,13 @@
 </style>
 <main>
   <h1>Plano de execução — project-hardening</h1>
-  <p class="sub">gerado por <code>onp-spec plano</code> em 2026-08-31 21:28 · regenere após mudar tasks.md</p>
+  <p class="sub">gerado por <code>onp-spec plano</code> em 2026-08-31 22:05 · regenere após mudar tasks.md</p>
   <div class="resumo">
-    <div><b>2</b> tarefa(s), uma após a outra</div>
+    <div><b>3</b> tarefa(s), uma após a outra</div>
     <div>modo <b>sequencial</b> (escolha do usuário)</div>
     <div>branch <code>spec/project-hardening</code></div>
   </div>
-  <div class="avisos"><div>⚠ T-001 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar</div><div>⚠ T-006 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar</div></div>
+  <div class="avisos"><div>⚠ T-001 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar</div><div>⚠ T-006 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar</div><div>⚠ T-007 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar</div></div>
   <div class="executor">
     <h2>Como executar — via agente</h2>
     <p>Peça ao agente (Codex) para executar o plano. Ele roda:</p>
@@ -71,6 +71,12 @@
           <span class="ttitulo">Isolar PostgreSQL nos testes de saga</span>
           <span class="meta"><code>gpt-5.6-terra</code> · esforço <b>high</b></span>
           <span class="arquivos"><code>order-service/order-container/pom.xml</code> <code>order-service/order-container/src/test/java/com/food/ordering/system/order/service/domain/OrderPaymentSagaTest.java</code></span>
+        </div>
+        <div class="tarefa">
+          <span class="tid">T-007</span>
+          <span class="ttitulo">Isolar PostgreSQL nos testes de pagamento</span>
+          <span class="meta"><code>gpt-5.6-terra</code> · esforço <b>high</b></span>
+          <span class="arquivos"><code>payment-service/payment-container/pom.xml</code> <code>payment-service/payment-container/src/test/java/com/food/ordering/system/payment/service/domain/PaymentRequestMessageListenerTest.java</code></span>
         </div></div></div>
     </section>
   <section class="onda">
