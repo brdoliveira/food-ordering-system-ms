@@ -10,27 +10,27 @@ public class Money {
     public static final Money ZERO = new Money(BigDecimal.ZERO);
 
     public Money(BigDecimal amount) {
-        this.amount = amount;
+        this.amount = setScale(Objects.requireNonNull(amount, "amount must not be null"));
     }
 
     public boolean isGreaterThanZero() {
-        return this.amount != null && this.amount.compareTo(BigDecimal.ZERO) > 0;
+        return this.amount.compareTo(BigDecimal.ZERO) > 0;
     }
 
     public boolean isGreaterThan(Money money) {
-        return this.amount != null && this.amount.compareTo(money.getAmount()) > 0;
+        return this.amount.compareTo(Objects.requireNonNull(money, "money must not be null").getAmount()) > 0;
     }
 
     public Money add(Money money) {
-        return new Money(setScale(this.amount.add(money.getAmount())));
+        return new Money(this.amount.add(Objects.requireNonNull(money, "money must not be null").getAmount()));
     }
 
     public Money subtract(Money money) {
-        return new Money(setScale(this.amount.subtract(money.getAmount())));
+        return new Money(this.amount.subtract(Objects.requireNonNull(money, "money must not be null").getAmount()));
     }
 
     public Money multiply(int multiplier) {
-        return new Money(setScale(this.amount.multiply(new BigDecimal(multiplier))));
+        return new Money(this.amount.multiply(BigDecimal.valueOf(multiplier)));
     }
 
     public BigDecimal getAmount() {
@@ -50,7 +50,7 @@ public class Money {
         return Objects.hash(amount);
     }
 
-    private BigDecimal setScale(BigDecimal input) {
+    private static BigDecimal setScale(BigDecimal input) {
         return input.setScale(2, RoundingMode.HALF_EVEN);
     }
 }
