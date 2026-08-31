@@ -15,7 +15,7 @@ Como pessoa desenvolvedora, quero compilar e testar o projeto sem instalar Maven
 
 #### AC-001 — Build completo funciona pelo Maven Wrapper
 
-- **Dado** um clone limpo com Java 17 e acesso às dependências Maven
+- **Dado** um clone limpo com Java 17, Docker disponível e acesso às dependências Maven
 - **Quando** a pessoa executa o Maven Wrapper com a fase `test`
 - **Então** todos os módulos são compilados e todos os testes terminam com sucesso sem depender de uma instalação global do Maven
 
@@ -80,6 +80,7 @@ Como pessoa nova no projeto, quero entender a arquitetura e executar o ambiente 
 |---|---|---|---|
 | ASM-001 | A melhoria prioritária é a fundação técnica e a experiência de desenvolvimento, não uma nova funcionalidade de negócio. | confirmada | O usuário aprovou o plano recomendado em 2026-08-31. |
 | ASM-002 | Java 17 continua sendo a versão alvo do projeto. | confirmada | O `pom.xml` raiz já fixa `release` 17 e o escopo não inclui migração de runtime. |
+| ASM-003 | Os testes de integração podem usar Testcontainers e exigir Docker para fornecer PostgreSQL isolado. | confirmada | O usuário autorizou explicitamente a tarefa adicional em 2026-08-31. |
 
 ## Perguntas em aberto
 

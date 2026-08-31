@@ -36,3 +36,11 @@
 - Modelo: gpt-5.6-luna
 - Esforço: baixo
 - Notas: documentar somente comandos e comportamentos comprovados pelas demais tarefas.
+
+## T-006 — Isolar PostgreSQL nos testes de saga [em-andamento]
+
+- Refs: US-001, AC-001
+- Arquivos: order-service/order-container/pom.xml, order-service/order-container/src/test/java/com/food/ordering/system/order/service/domain/OrderPaymentSagaTest.java
+- Modelo: gpt-5.6-terra
+- Esforço: alto
+- Notas: usar Testcontainers para iniciar PostgreSQL por suíte, registrar as propriedades dinâmicas no Spring e eliminar a dependência de um banco manual em `localhost`.

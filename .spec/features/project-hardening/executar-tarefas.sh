@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# executar-tarefas.sh — gerado por `onp-spec plano project-hardening` em 2026-08-31 20:48
+# executar-tarefas.sh — gerado por `onp-spec plano project-hardening` em 2026-08-31 21:28
 # NÃO edite à mão: mudou tasks.md ou a config, regenere o plano.
 #
 # uso:
@@ -14,7 +14,7 @@
 set -u
 set -o pipefail
 
-RUN_ID='food-ordering-system-ms-project-hardening-mthpo3ra'
+RUN_ID='food-ordering-system-ms-project-hardening-mthr38u2'
 FEATURE='project-hardening'
 BASE_BRANCH='spec/project-hardening'
 ENGINE='C:\Users\brufe\.agents\skills\onp-spec-driven\scripts\onp-spec.mjs'
@@ -168,15 +168,10 @@ iniciar_resumos() {
   trap 'parar_resumos; node "$ENGINE" resumo "$FEATURE" --gravar >/dev/null 2>&1 || true' EXIT
 }
 
-# ── faixa-1: T-001 ──
-executar_faixa_1() {
-  local WT="$WT_BASE-faixa-1"
-  preparar_worktree 'faixa-1' 'spec/project-hardening-faixa-1' "$WT" || return 1
-  evento --tipo faixa --faixa 'faixa-1' --estado executando --tentativa "$(tentativa 'faixa-1')"
-  : > "$LOG_DIR/faixa-1.log"
-  (
-    cd "$WT" || exit 9
-    rodar_tarefa 'faixa-1' 'T-001' 'Você executa UMA tarefa da feature "project-hardening" (fluxo onp-spec, spec-anchored).
+# ── sequencial T-001 (ordem do tasks.md) ──
+executar_seq_T_001() {
+  info 'sequencial T-001 — Tornar build, CI e repositório reproduzíveis'
+  if rodar_tarefa seq 'T-001' 'Você executa UMA tarefa da feature "project-hardening" (fluxo onp-spec, spec-anchored).
 Leia primeiro: .spec/features/project-hardening/spec.md, .spec/features/project-hardening/tasks.md e .spec/constituicao.md.
 
 Sua tarefa (somente ela):
@@ -190,132 +185,51 @@ Regras inegociáveis:
 - NUNCA enfraqueça, pule (skip/todo) ou apague um teste para passar — teste pulado não é prova e o audit acusa.
 - Rode os testes localmente com `node --test quality-tests` até passarem.
 - NÃO edite tasks.md, NÃO rode onp-spec verify/audit e NÃO toque em outras tarefas — o orquestrador cuida disso.
-- Ao final de CADA tarefa: `git add` só no que você tocou e um commit próprio.' 'gpt-5.6-terra' medium
-  ) >> "$LOG_DIR/faixa-1.log" 2>&1
-  local st=$?
-  mesclar_faixa 'faixa-1' 'spec/project-hardening-faixa-1' "$WT" "$st" || return 1
-  marcar_concluidas T-001
-  return 0
+- Ao final de CADA tarefa: `git add` só no que você tocou e um commit próprio.' 'gpt-5.6-terra' medium >> "$LOG_DIR/seq.log" 2>&1; then
+    # commit de segurança se o agente esqueceu (rastreabilidade > perfeição)
+    if [ -n "$(git status --porcelain)" ]; then
+      git add -A && git commit -q -m 'T-001 project-hardening: Tornar build, CI e repositório reproduzíveis (auto-commit do plano)'
+    fi
+    marcar_concluidas T-001
+    verde "✔ T-001 concluída"
+    return 0
+  fi
+  vermelho "✘ T-001 falhou (log: $LOG_DIR/seq.log)"
+  amarelo "  reexecute só ela: bash .spec/features/project-hardening/executar-tarefas.sh --seq T-001"
+  FALHAS="$FALHAS T-001"
+  return 1
 }
 
-# ── faixa-2: T-002 ──
-executar_faixa_2() {
-  local WT="$WT_BASE-faixa-2"
-  preparar_worktree 'faixa-2' 'spec/project-hardening-faixa-2' "$WT" || return 1
-  evento --tipo faixa --faixa 'faixa-2' --estado executando --tentativa "$(tentativa 'faixa-2')"
-  : > "$LOG_DIR/faixa-2.log"
-  (
-    cd "$WT" || exit 9
-    rodar_tarefa 'faixa-2' 'T-002' 'Você executa UMA tarefa da feature "project-hardening" (fluxo onp-spec, spec-anchored).
+# ── sequencial T-006 (ordem do tasks.md) ──
+executar_seq_T_006() {
+  info 'sequencial T-006 — Isolar PostgreSQL nos testes de saga'
+  if rodar_tarefa seq 'T-006' 'Você executa UMA tarefa da feature "project-hardening" (fluxo onp-spec, spec-anchored).
 Leia primeiro: .spec/features/project-hardening/spec.md, .spec/features/project-hardening/tasks.md e .spec/constituicao.md.
 
 Sua tarefa (somente ela):
-T-002 — "Externalizar configuração dos serviços"
-  critérios/refs: AC-004 (Serviços aceitam configuração por ambiente)
-  arquivos permitidos (e seus testes): .env.example, customer-service/customer-container/src/main/resources/application.yml, order-service/order-container/src/main/resources/application.yml, payment-service/payment-container/src/main/resources/application.yml, restaurant-service/restaurant-container/src/main/resources/application.yml, quality-tests/runtime-configuration.test.mjs
-  mensagem de commit: "T-002 project-hardening: Externalizar configuração dos serviços"
+T-006 — "Isolar PostgreSQL nos testes de saga"
+  critérios/refs: AC-001 (Build completo funciona pelo Maven Wrapper)
+  arquivos permitidos (e seus testes): order-service/order-container/pom.xml, order-service/order-container/src/test/java/com/food/ordering/system/order/service/domain/OrderPaymentSagaTest.java
+  mensagem de commit: "T-006 project-hardening: Isolar PostgreSQL nos testes de saga"
 
 Regras inegociáveis:
 - Todo critério de aceite referenciado vira teste com @spec:AC-xxx no título.
 - NUNCA enfraqueça, pule (skip/todo) ou apague um teste para passar — teste pulado não é prova e o audit acusa.
 - Rode os testes localmente com `node --test quality-tests` até passarem.
 - NÃO edite tasks.md, NÃO rode onp-spec verify/audit e NÃO toque em outras tarefas — o orquestrador cuida disso.
-- Ao final de CADA tarefa: `git add` só no que você tocou e um commit próprio.' 'gpt-5.6-terra' medium
-  ) >> "$LOG_DIR/faixa-2.log" 2>&1
-  local st=$?
-  mesclar_faixa 'faixa-2' 'spec/project-hardening-faixa-2' "$WT" "$st" || return 1
-  marcar_concluidas T-002
-  return 0
-}
-
-# ── faixa-3: T-003 ──
-executar_faixa_3() {
-  local WT="$WT_BASE-faixa-3"
-  preparar_worktree 'faixa-3' 'spec/project-hardening-faixa-3' "$WT" || return 1
-  evento --tipo faixa --faixa 'faixa-3' --estado executando --tentativa "$(tentativa 'faixa-3')"
-  : > "$LOG_DIR/faixa-3.log"
-  (
-    cd "$WT" || exit 9
-    rodar_tarefa 'faixa-3' 'T-003' 'Você executa UMA tarefa da feature "project-hardening" (fluxo onp-spec, spec-anchored).
-Leia primeiro: .spec/features/project-hardening/spec.md, .spec/features/project-hardening/tasks.md e .spec/constituicao.md.
-
-Sua tarefa (somente ela):
-T-003 — "Corrigir e completar a infraestrutura local"
-  critérios/refs: AC-005 (Infraestrutura local sobe com configuração coerente)
-  arquivos permitidos (e seus testes): infrastructure/docker-compose/common.yml, infrastructure/docker-compose/zookeeper.yml, infrastructure/docker-compose/kafka_cluster.yml, infrastructure/docker-compose/init_kafka.yml, quality-tests/local-infrastructure.test.mjs
-  mensagem de commit: "T-003 project-hardening: Corrigir e completar a infraestrutura local"
-
-Regras inegociáveis:
-- Todo critério de aceite referenciado vira teste com @spec:AC-xxx no título.
-- NUNCA enfraqueça, pule (skip/todo) ou apague um teste para passar — teste pulado não é prova e o audit acusa.
-- Rode os testes localmente com `node --test quality-tests` até passarem.
-- NÃO edite tasks.md, NÃO rode onp-spec verify/audit e NÃO toque em outras tarefas — o orquestrador cuida disso.
-- Ao final de CADA tarefa: `git add` só no que você tocou e um commit próprio.' 'gpt-5.6-terra' high
-  ) >> "$LOG_DIR/faixa-3.log" 2>&1
-  local st=$?
-  mesclar_faixa 'faixa-3' 'spec/project-hardening-faixa-3' "$WT" "$st" || return 1
-  marcar_concluidas T-003
-  return 0
-}
-
-# ── faixa-4: T-004 ──
-executar_faixa_4() {
-  local WT="$WT_BASE-faixa-4"
-  preparar_worktree 'faixa-4' 'spec/project-hardening-faixa-4' "$WT" || return 1
-  evento --tipo faixa --faixa 'faixa-4' --estado executando --tentativa "$(tentativa 'faixa-4')"
-  : > "$LOG_DIR/faixa-4.log"
-  (
-    cd "$WT" || exit 9
-    rodar_tarefa 'faixa-4' 'T-004' 'Você executa UMA tarefa da feature "project-hardening" (fluxo onp-spec, spec-anchored).
-Leia primeiro: .spec/features/project-hardening/spec.md, .spec/features/project-hardening/tasks.md e .spec/constituicao.md.
-
-Sua tarefa (somente ela):
-T-004 — "Fortalecer invariantes monetárias"
-  critérios/refs: AC-006 (Dinheiro possui invariantes explícitas)
-  arquivos permitidos (e seus testes): common/common-domain/pom.xml, common/common-domain/src/main/java/com/food/ordering/system/domain/valueobject/Money.java, common/common-domain/src/test/java/com/food/ordering/system/domain/valueobject/MoneyTest.java, quality-tests/money-domain.test.mjs
-  mensagem de commit: "T-004 project-hardening: Fortalecer invariantes monetárias"
-
-Regras inegociáveis:
-- Todo critério de aceite referenciado vira teste com @spec:AC-xxx no título.
-- NUNCA enfraqueça, pule (skip/todo) ou apague um teste para passar — teste pulado não é prova e o audit acusa.
-- Rode os testes localmente com `node --test quality-tests` até passarem.
-- NÃO edite tasks.md, NÃO rode onp-spec verify/audit e NÃO toque em outras tarefas — o orquestrador cuida disso.
-- Ao final de CADA tarefa: `git add` só no que você tocou e um commit próprio.' 'gpt-5.6-terra' high
-  ) >> "$LOG_DIR/faixa-4.log" 2>&1
-  local st=$?
-  mesclar_faixa 'faixa-4' 'spec/project-hardening-faixa-4' "$WT" "$st" || return 1
-  marcar_concluidas T-004
-  return 0
-}
-
-# ── faixa-5: T-005 ──
-executar_faixa_5() {
-  local WT="$WT_BASE-faixa-5"
-  preparar_worktree 'faixa-5' 'spec/project-hardening-faixa-5' "$WT" || return 1
-  evento --tipo faixa --faixa 'faixa-5' --estado executando --tentativa "$(tentativa 'faixa-5')"
-  : > "$LOG_DIR/faixa-5.log"
-  (
-    cd "$WT" || exit 9
-    rodar_tarefa 'faixa-5' 'T-005' 'Você executa UMA tarefa da feature "project-hardening" (fluxo onp-spec, spec-anchored).
-Leia primeiro: .spec/features/project-hardening/spec.md, .spec/features/project-hardening/tasks.md e .spec/constituicao.md.
-
-Sua tarefa (somente ela):
-T-005 — "Documentar arquitetura e operação"
-  critérios/refs: AC-007 (README permite compreender e executar o sistema)
-  arquivos permitidos (e seus testes): README.md, quality-tests/documentation.test.mjs
-  mensagem de commit: "T-005 project-hardening: Documentar arquitetura e operação"
-
-Regras inegociáveis:
-- Todo critério de aceite referenciado vira teste com @spec:AC-xxx no título.
-- NUNCA enfraqueça, pule (skip/todo) ou apague um teste para passar — teste pulado não é prova e o audit acusa.
-- Rode os testes localmente com `node --test quality-tests` até passarem.
-- NÃO edite tasks.md, NÃO rode onp-spec verify/audit e NÃO toque em outras tarefas — o orquestrador cuida disso.
-- Ao final de CADA tarefa: `git add` só no que você tocou e um commit próprio.' 'gpt-5.6-luna' low
-  ) >> "$LOG_DIR/faixa-5.log" 2>&1
-  local st=$?
-  mesclar_faixa 'faixa-5' 'spec/project-hardening-faixa-5' "$WT" "$st" || return 1
-  marcar_concluidas T-005
-  return 0
+- Ao final de CADA tarefa: `git add` só no que você tocou e um commit próprio.' 'gpt-5.6-terra' high >> "$LOG_DIR/seq.log" 2>&1; then
+    # commit de segurança se o agente esqueceu (rastreabilidade > perfeição)
+    if [ -n "$(git status --porcelain)" ]; then
+      git add -A && git commit -q -m 'T-006 project-hardening: Isolar PostgreSQL nos testes de saga (auto-commit do plano)'
+    fi
+    marcar_concluidas T-006
+    verde "✔ T-006 concluída"
+    return 0
+  fi
+  vermelho "✘ T-006 falhou (log: $LOG_DIR/seq.log)"
+  amarelo "  reexecute só ela: bash .spec/features/project-hardening/executar-tarefas.sh --seq T-006"
+  FALHAS="$FALHAS T-006"
+  return 1
 }
 
 # ── gate: quem decide é a máquina ────────────────────────────────────
@@ -371,30 +285,15 @@ executar_tudo() {
   iniciar_resumos
   info "logs em: $LOG_DIR"
   info "resumo geral de andamento: a cada 1 min aqui no terminal (e via: onp-spec resumo)"
-  # onda 1: faixa-1 ∥ faixa-2 ∥ faixa-3
-  info "onda 1: faixa-1 ∥ faixa-2 ∥ faixa-3 — janelas limpas em paralelo"
-  executar_faixa_1 & PID_FAIXA_1=$!
-  executar_faixa_2 & PID_FAIXA_2=$!
-  executar_faixa_3 & PID_FAIXA_3=$!
-  wait "$PID_FAIXA_1" || true
-  wait "$PID_FAIXA_2" || true
-  wait "$PID_FAIXA_3" || true
-  # onda 2: faixa-4 ∥ faixa-5
-  info "onda 2: faixa-4 ∥ faixa-5 — janelas limpas em paralelo"
-  executar_faixa_4 & PID_FAIXA_4=$!
-  executar_faixa_5 & PID_FAIXA_5=$!
-  wait "$PID_FAIXA_4" || true
-  wait "$PID_FAIXA_5" || true
+  executar_seq_T_001 || true
+  executar_seq_T_006 || true
   encerrar tudo
 }
 
 listar() {
   echo "execução: $RUN_ID (feature $FEATURE, branch $BASE_BRANCH)"
-  echo "  faixa-1  onda 1  T-001"
-  echo "  faixa-2  onda 1  T-002"
-  echo "  faixa-3  onda 1  T-003"
-  echo "  faixa-4  onda 2  T-004"
-  echo "  faixa-5  onda 2  T-005"
+  echo "  seq       T-001 (sequencial)"
+  echo "  seq       T-006 (sequencial)"
   echo
   echo "reexecutar uma faixa:    --faixa <id>"
   echo "reexecutar sequencial:   --seq <T-xxx>"
@@ -425,15 +324,12 @@ case "$MODO" in
   gate) COM_GATE=1; iniciar_resumos; encerrar gate ;;
   faixa)
     case "$ALVO" in
-      faixa-1) evento --tipo inicio --escopo "faixa:faixa-1"; iniciar_resumos; executar_faixa_1 || true; encerrar "faixa:faixa-1" ;;
-      faixa-2) evento --tipo inicio --escopo "faixa:faixa-2"; iniciar_resumos; executar_faixa_2 || true; encerrar "faixa:faixa-2" ;;
-      faixa-3) evento --tipo inicio --escopo "faixa:faixa-3"; iniciar_resumos; executar_faixa_3 || true; encerrar "faixa:faixa-3" ;;
-      faixa-4) evento --tipo inicio --escopo "faixa:faixa-4"; iniciar_resumos; executar_faixa_4 || true; encerrar "faixa:faixa-4" ;;
-      faixa-5) evento --tipo inicio --escopo "faixa:faixa-5"; iniciar_resumos; executar_faixa_5 || true; encerrar "faixa:faixa-5" ;;
       *) falhar "faixa desconhecida: '$ALVO' — veja as disponíveis com --listar" ;;
     esac ;;
   seq)
     case "$ALVO" in
+      T-001) evento --tipo inicio --escopo "seq:T-001"; iniciar_resumos; executar_seq_T_001 || true; encerrar "seq:T-001" ;;
+      T-006) evento --tipo inicio --escopo "seq:T-006"; iniciar_resumos; executar_seq_T_006 || true; encerrar "seq:T-006" ;;
       *) falhar "tarefa sequencial desconhecida: '$ALVO' — veja as disponíveis com --listar" ;;
     esac ;;
 esac

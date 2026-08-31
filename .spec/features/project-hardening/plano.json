@@ -1,152 +1,64 @@
 {
-  "runId": "food-ordering-system-ms-project-hardening-mthpo3ra",
+  "runId": "food-ordering-system-ms-project-hardening-mthr38u2",
   "feature": "project-hardening",
   "agent": "codex",
-  "modo": "paralelo",
+  "modo": "sequencial",
   "paralelizar": null,
   "modeloForcado": null,
   "esforcoForcado": null,
-  "geradoEm": "2026-08-31 20:48",
+  "geradoEm": "2026-08-31 21:28",
   "branchTrabalho": "spec/project-hardening",
   "baseDir": ".spec/features/project-hardening",
   "specDir": ".spec",
   "repoName": "food-ordering-system-ms",
   "logsDir": "../onp-worktrees/food-ordering-system-ms-project-hardening-logs",
-  "ondas": [
-    [
-      "faixa-1",
-      "faixa-2",
-      "faixa-3"
-    ],
-    [
-      "faixa-4",
-      "faixa-5"
-    ]
-  ],
-  "faixas": [
+  "ondas": [],
+  "faixas": [],
+  "sequenciais": [
     {
-      "id": "faixa-1",
-      "branch": "spec/project-hardening-faixa-1",
-      "worktree": "../onp-worktrees/food-ordering-system-ms-project-hardening-faixa-1",
-      "tarefas": [
-        {
-          "id": "T-001",
-          "titulo": "Tornar build, CI e repositório reproduzíveis",
-          "modelo": "gpt-5.6-terra",
-          "esforco": "medium",
-          "arquivos": [
-            ".mvn/wrapper/maven-wrapper.properties",
-            "mvnw",
-            "mvnw.cmd",
-            ".gitignore",
-            ".github/workflows/ci.yml",
-            "quality-tests/build-foundation.test.mjs",
-            "onpspec.config.json"
-          ],
-          "refs": [
-            "US-001",
-            "AC-001",
-            "AC-002",
-            "AC-003"
-          ]
-        }
+      "id": "T-001",
+      "titulo": "Tornar build, CI e repositório reproduzíveis",
+      "modelo": "gpt-5.6-terra",
+      "esforco": "medium",
+      "arquivos": [
+        ".mvn/wrapper/maven-wrapper.properties",
+        "mvnw",
+        "mvnw.cmd",
+        ".gitignore",
+        ".github/workflows/ci.yml",
+        "quality-tests/build-foundation.test.mjs",
+        "onpspec.config.json"
+      ],
+      "refs": [
+        "US-001",
+        "AC-001",
+        "AC-002",
+        "AC-003"
       ]
     },
     {
-      "id": "faixa-2",
-      "branch": "spec/project-hardening-faixa-2",
-      "worktree": "../onp-worktrees/food-ordering-system-ms-project-hardening-faixa-2",
-      "tarefas": [
-        {
-          "id": "T-002",
-          "titulo": "Externalizar configuração dos serviços",
-          "modelo": "gpt-5.6-terra",
-          "esforco": "medium",
-          "arquivos": [
-            ".env.example",
-            "customer-service/customer-container/src/main/resources/application.yml",
-            "order-service/order-container/src/main/resources/application.yml",
-            "payment-service/payment-container/src/main/resources/application.yml",
-            "restaurant-service/restaurant-container/src/main/resources/application.yml",
-            "quality-tests/runtime-configuration.test.mjs"
-          ],
-          "refs": [
-            "US-002",
-            "AC-004"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "faixa-3",
-      "branch": "spec/project-hardening-faixa-3",
-      "worktree": "../onp-worktrees/food-ordering-system-ms-project-hardening-faixa-3",
-      "tarefas": [
-        {
-          "id": "T-003",
-          "titulo": "Corrigir e completar a infraestrutura local",
-          "modelo": "gpt-5.6-terra",
-          "esforco": "high",
-          "arquivos": [
-            "infrastructure/docker-compose/common.yml",
-            "infrastructure/docker-compose/zookeeper.yml",
-            "infrastructure/docker-compose/kafka_cluster.yml",
-            "infrastructure/docker-compose/init_kafka.yml",
-            "quality-tests/local-infrastructure.test.mjs"
-          ],
-          "refs": [
-            "US-002",
-            "AC-005"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "faixa-4",
-      "branch": "spec/project-hardening-faixa-4",
-      "worktree": "../onp-worktrees/food-ordering-system-ms-project-hardening-faixa-4",
-      "tarefas": [
-        {
-          "id": "T-004",
-          "titulo": "Fortalecer invariantes monetárias",
-          "modelo": "gpt-5.6-terra",
-          "esforco": "high",
-          "arquivos": [
-            "common/common-domain/pom.xml",
-            "common/common-domain/src/main/java/com/food/ordering/system/domain/valueobject/Money.java",
-            "common/common-domain/src/test/java/com/food/ordering/system/domain/valueobject/MoneyTest.java",
-            "quality-tests/money-domain.test.mjs"
-          ],
-          "refs": [
-            "US-003",
-            "AC-006"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "faixa-5",
-      "branch": "spec/project-hardening-faixa-5",
-      "worktree": "../onp-worktrees/food-ordering-system-ms-project-hardening-faixa-5",
-      "tarefas": [
-        {
-          "id": "T-005",
-          "titulo": "Documentar arquitetura e operação",
-          "modelo": "gpt-5.6-luna",
-          "esforco": "low",
-          "arquivos": [
-            "README.md",
-            "quality-tests/documentation.test.mjs"
-          ],
-          "refs": [
-            "US-004",
-            "AC-007"
-          ]
-        }
+      "id": "T-006",
+      "titulo": "Isolar PostgreSQL nos testes de saga",
+      "modelo": "gpt-5.6-terra",
+      "esforco": "high",
+      "arquivos": [
+        "order-service/order-container/pom.xml",
+        "order-service/order-container/src/test/java/com/food/ordering/system/order/service/domain/OrderPaymentSagaTest.java"
+      ],
+      "refs": [
+        "US-001",
+        "AC-001"
       ]
     }
   ],
-  "sequenciais": [],
-  "concluidas": [],
-  "avisos": []
+  "concluidas": [
+    "T-002",
+    "T-003",
+    "T-004",
+    "T-005"
+  ],
+  "avisos": [
+    "T-001 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar",
+    "T-006 está [em-andamento] — entrou no plano; se já houver trabalho local, commite antes de executar"
+  ]
 }
