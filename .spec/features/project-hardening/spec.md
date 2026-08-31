@@ -1,7 +1,7 @@
 # Spec: Fortalecimento técnico do projeto
 
 > feature: project-hardening
-> status: em-implementacao
+> status: implementada
 
 ## Contexto
 

@@ -2,7 +2,7 @@
 
 > feature: project-hardening
 
-## T-001 — Tornar build, CI e repositório reproduzíveis [em-andamento]
+## T-001 — Tornar build, CI e repositório reproduzíveis [concluida]
 - Refs: US-001, AC-001, AC-002, AC-003
 - Arquivos: .mvn/wrapper/maven-wrapper.properties, mvnw, mvnw.cmd, .gitignore, .github/workflows/ci.yml, quality-tests/build-foundation.test.mjs, onpspec.config.json
 - Modelo: gpt-5.6-terra
@@ -37,16 +37,14 @@
 - Esforço: baixo
 - Notas: documentar somente comandos e comportamentos comprovados pelas demais tarefas.
 
-## T-006 — Isolar PostgreSQL nos testes de saga [em-andamento]
-
+## T-006 — Isolar PostgreSQL nos testes de saga [concluida]
 - Refs: US-001, AC-001
 - Arquivos: order-service/order-container/pom.xml, order-service/order-container/src/test/java/com/food/ordering/system/order/service/domain/OrderPaymentSagaTest.java
 - Modelo: gpt-5.6-terra
 - Esforço: alto
 - Notas: usar Testcontainers para iniciar PostgreSQL por suíte, registrar as propriedades dinâmicas no Spring e eliminar a dependência de um banco manual em `localhost`.
 
-## T-007 — Isolar PostgreSQL nos testes de pagamento [em-andamento]
-
+## T-007 — Isolar PostgreSQL nos testes de pagamento [concluida]
 - Refs: US-001, AC-001
 - Arquivos: payment-service/payment-container/pom.xml, payment-service/payment-container/src/test/java/com/food/ordering/system/payment/service/domain/PaymentRequestMessageListenerTest.java
 - Modelo: gpt-5.6-terra
