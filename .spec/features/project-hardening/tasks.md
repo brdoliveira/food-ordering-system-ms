@@ -30,7 +30,7 @@
 - Esforço: alto
 - Notas: normalizar escala na construção, rejeitar nulo e cobrir igualdade e operações com testes unitários.
 
-## T-005 — Documentar arquitetura e operação [em-andamento]
+## T-005 — Documentar arquitetura e operação [concluida]
 - Refs: US-004, AC-007
 - Arquivos: README.md, quality-tests/documentation.test.mjs
 - Modelo: gpt-5.6-luna
