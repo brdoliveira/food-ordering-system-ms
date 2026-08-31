@@ -9,7 +9,7 @@
 - Esforço: medio
 - Notas: instalar o Maven Wrapper oficial, validar o build completo e executar o mesmo comando na CI.
 
-## T-002 — Externalizar configuração dos serviços [em-andamento]
+## T-002 — Externalizar configuração dos serviços [concluida]
 - Refs: US-002, AC-004
 - Arquivos: .env.example, customer-service/customer-container/src/main/resources/application.yml, order-service/order-container/src/main/resources/application.yml, payment-service/payment-container/src/main/resources/application.yml, restaurant-service/restaurant-container/src/main/resources/application.yml, quality-tests/runtime-configuration.test.mjs
 - Modelo: gpt-5.6-terra
