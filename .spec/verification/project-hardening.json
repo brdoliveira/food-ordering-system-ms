@@ -1,11 +1,47 @@
 {
   "feature": "project-hardening",
-  "timestamp": "2026-08-31T20:56:01.099Z",
-  "gitRev": "081ce3b",
-  "command": "node --test quality-tests",
+  "timestamp": "2026-08-31T22:31:47.605Z",
+  "gitRev": "0160f2d",
+  "command": "node --test --test-reporter=tap \"quality-tests/*.test.mjs\"",
   "reporter": "tap",
-  "exitCode": 1,
-  "testsParsed": 0,
-  "results": {},
+  "exitCode": 0,
+  "testsParsed": 7,
+  "results": {
+    "AC-001": {
+      "status": "pass",
+      "testName": "@spec:AC-001 build completo funciona pelo Maven Wrapper",
+      "method": "tap"
+    },
+    "AC-002": {
+      "status": "pass",
+      "testName": "@spec:AC-002 integração contínua valida cada mudança",
+      "method": "tap"
+    },
+    "AC-003": {
+      "status": "pass",
+      "testName": "@spec:AC-003 arquivos locais e gerados ficam fora do versionamento",
+      "method": "tap"
+    },
+    "AC-004": {
+      "status": "pass",
+      "testName": "@spec:AC-004 serviços aceitam configuração de banco e Kafka por ambiente",
+      "method": "tap"
+    },
+    "AC-005": {
+      "status": "pass",
+      "testName": "@spec:AC-005 infraestrutura local combina PostgreSQL, ZooKeeper, trÃªs brokers Kafka e Schema Registry na rede declarada",
+      "method": "tap"
+    },
+    "AC-006": {
+      "status": "pass",
+      "testName": "@spec:AC-006 dinheiro normaliza escala, rejeita nulo e preserva invariantes nas operações",
+      "method": "tap"
+    },
+    "AC-007": {
+      "status": "pass",
+      "testName": "@spec:AC-007 README documenta arquitetura, operação, portas e exemplos de API",
+      "method": "tap"
+    }
+  },
   "principles": {}
 }
