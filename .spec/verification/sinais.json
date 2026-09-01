@@ -122,9 +122,9 @@
       "codigo": "VERIFY_OBSOLETO",
       "feature": "project-hardening",
       "ref": "—",
-      "ocorrencias": 2,
+      "ocorrencias": 3,
       "primeiraVez": "2026-08-31T22:32:36.547Z",
-      "ultimaVez": "2026-09-01T02:29:28.340Z",
+      "ultimaVez": "2026-09-01T20:45:36.288Z",
       "gitRev": "1afeaac"
     },
     "STATUS_INVALIDO::resiliencia-e-performance::.spec\\features\\resiliencia-e-performance\\spec.md": {

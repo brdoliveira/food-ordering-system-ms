@@ -1,11 +1,11 @@
 {
   "feature": "project-hardening",
-  "timestamp": "2026-08-31T22:34:32.269Z",
+  "timestamp": "2026-09-01T20:50:02.589Z",
   "gitRev": null,
   "command": "node --test --test-reporter=tap \"quality-tests/*.test.mjs\"",
   "reporter": "tap",
   "exitCode": 0,
-  "testsParsed": 7,
+  "testsParsed": 21,
   "results": {
     "AC-001": {
       "status": "pass",

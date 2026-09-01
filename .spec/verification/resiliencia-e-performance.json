@@ -1,20 +1,65 @@
 {
   "feature": "resiliencia-e-performance",
-  "timestamp": "2026-09-01T02:29:27.621Z",
-  "gitRev": "1afeaac",
+  "timestamp": "2026-09-01T20:45:03.930Z",
+  "gitRev": null,
   "command": "node --test --test-reporter=tap \"quality-tests/*.test.mjs\"",
   "reporter": "tap",
-  "exitCode": 1,
-  "testsParsed": 9,
+  "exitCode": 0,
+  "testsParsed": 21,
   "results": {
     "AC-008": {
       "status": "pass",
       "testName": "@spec:AC-008 stack completa fica pronta por um único comando Compose",
       "method": "tap"
     },
+    "AC-009": {
+      "status": "pass",
+      "testName": "@spec:AC-009 APIs de negócio exigem JWT válido e escopos mínimos",
+      "method": "tap"
+    },
+    "AC-010": {
+      "status": "pass",
+      "testName": "@spec:AC-010 serviços expõem saúde, prontidão, Prometheus e logs correlacionáveis sem segredos",
+      "method": "tap"
+    },
+    "AC-011": {
+      "status": "pass",
+      "testName": "@spec:AC-011 pedido válido termina APPROVED em até 60 s na stack real",
+      "method": "tap"
+    },
+    "AC-012": {
+      "status": "pass",
+      "testName": "@spec:AC-012 crédito insuficiente termina CANCELLED em até 60 s na stack real",
+      "method": "tap"
+    },
+    "AC-013": {
+      "status": "pass",
+      "testName": "@spec:AC-013 smoke exercita 5 VUs por 30 s e aplica os limites HTTP",
+      "method": "tap"
+    },
+    "AC-014": {
+      "status": "pass",
+      "testName": "@spec:AC-014 carga cresce de 10 para 50 VUs, sustenta por 2 min e mede sagas",
+      "method": "tap"
+    },
+    "AC-015": {
+      "status": "pass",
+      "testName": "@spec:AC-015 estresse cresce de 50 para 150 VUs, valida preflight e persiste artefatos",
+      "method": "tap"
+    },
+    "AC-016": {
+      "status": "pass",
+      "testName": "@spec:AC-016 CI executa build, testes e smoke nas mudanças comuns; carga e estresse ficam agendados ou manuais",
+      "method": "tap"
+    },
     "AC-017": {
       "status": "pass",
       "testName": "@spec:AC-017 imagens imutáveis dos quatro serviços estão prontas para publicação no GHCR",
+      "method": "tap"
+    },
+    "AC-018": {
+      "status": "pass",
+      "testName": "@spec:AC-018 runbook documenta stack, autenticação, observabilidade, E2E, desempenho, máquina, CI e GHCR",
       "method": "tap"
     }
   },
