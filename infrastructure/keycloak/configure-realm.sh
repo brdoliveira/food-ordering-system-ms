@@ -71,7 +71,7 @@ else
     -s "secret=${KEYCLOAK_CLIENT_SECRET}"
 fi
 
-for scope in customer.read customer.write order.read order.write; do
+for scope in customers:write orders:read orders:write; do
   scope_uuid="$(
     "${kcadm}" get client-scopes \
       -r "${KEYCLOAK_REALM}" \

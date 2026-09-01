@@ -12,6 +12,8 @@ payment-service:
   outbox-scheduler-initial-delay: 10000
 
 spring:
+  application:
+    name: payment-service
   jpa:
     open-in-view: false
     show-sql: true
@@ -65,3 +67,24 @@ kafka-consumer-config:
   max-partition-fetch-bytes-default: 1048576
   max-partition-fetch-bytes-boost-factor: 1
   poll-timeout-ms: 150
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  tracing:
+    sampling:
+      probability: ${TRACING_SAMPLING_PROBABILITY:1.0}
+  metrics:
+    tags:
+      application: ${spring.application.name}
