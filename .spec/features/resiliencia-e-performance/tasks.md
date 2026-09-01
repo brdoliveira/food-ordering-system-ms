@@ -40,7 +40,7 @@
 - Esforço: alto
 - Notas: depende de T-008 e T-011; smoke em mudanças comuns, carga/estresse por agenda ou dispatch, relatórios como artefatos e imagens GHCR com permissões mínimas.
 
-## T-013 — Documentar segurança, observabilidade e performance [pendente]
+## T-013 — Documentar segurança, observabilidade e performance [concluída]
 
 - Refs: US-008, AC-018
 - Arquivos: README.md, .env.example, quality-tests/resilience-documentation.test.mjs
