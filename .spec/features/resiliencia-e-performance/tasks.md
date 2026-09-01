@@ -2,8 +2,7 @@
 
 > feature: resiliencia-e-performance
 
-## T-008 — Conteinerizar serviços e compor a stack completa [pendente]
-
+## T-008 — Conteinerizar serviços e compor a stack completa [concluida]
 - Refs: US-005, AC-008, AC-017
 - Arquivos: Dockerfile, .dockerignore, customer-service/customer-container/pom.xml, order-service/order-container/pom.xml, payment-service/payment-container/pom.xml, restaurant-service/restaurant-container/pom.xml, infrastructure/docker-compose/common.yml, infrastructure/docker-compose/zookeeper.yml, infrastructure/docker-compose/kafka_cluster.yml, infrastructure/docker-compose/init_kafka.yml, infrastructure/docker-compose/services.yml, infrastructure/docker-compose/keycloak.yml, infrastructure/keycloak/configure-realm.sh, quality-tests/container-stack.test.mjs
 - Modelo: gpt-5.6-sol
