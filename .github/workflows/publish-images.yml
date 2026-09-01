@@ -1,0 +1,69 @@
+name: Publish Container Images
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - image: customer
+            service: customer-service
+            module: customer-service/customer-container
+            port: 8184
+          - image: order
+            service: order-service
+            module: order-service/order-container
+            port: 8181
+          - image: payment
+            service: payment-service
+            module: payment-service/payment-container
+            port: 8182
+          - image: restaurant
+            service: restaurant-service
+            module: restaurant-service/restaurant-container
+            port: 8183
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Prepare image metadata
+        id: metadata
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository_owner }}/food-ordering-${{ matrix.image }}
+          tags: |
+            type=sha,format=long,prefix=sha-
+            type=raw,value=main,enable=${{ github.ref == 'refs/heads/main' }}
+            type=ref,event=tag
+
+      - name: Build and publish ${{ matrix.service }}
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: Dockerfile
+          push: true
+          tags: ${{ steps.metadata.outputs.tags }}
+          labels: ${{ steps.metadata.outputs.labels }}
+          build-args: |
+            SERVICE_MODULE=${{ matrix.module }}
+            SERVICE_NAME=${{ matrix.service }}
+            SERVICE_PORT=${{ matrix.port }}
+            BUILD_REVISION=${{ github.sha }}
+            GHCR_OWNER=${{ github.repository_owner }}

@@ -32,7 +32,7 @@
 - Esforço: alto
 - Notas: depende da stack de T-008/T-009; executar k6 por container, validar preflight, usar dados únicos e salvar resumo JSON e relatório para cada perfil.
 
-## T-012 — Automatizar CI, desempenho e publicação de imagens [pendente]
+## T-012 — Automatizar CI, desempenho e publicação de imagens [concluída]
 
 - Refs: US-008, AC-016, AC-017
 - Arquivos: .github/workflows/ci.yml, .github/workflows/performance.yml, .github/workflows/publish-images.yml, quality-tests/delivery-pipeline.test.mjs

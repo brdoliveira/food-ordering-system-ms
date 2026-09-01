@@ -1,9 +1,9 @@
-name: Continuous Integration
+name: Scheduled Performance
 
 on:
-  push:
-    branches: [main]
-  pull_request:
+  schedule:
+    - cron: '0 3 * * 1'
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -11,39 +11,26 @@ permissions:
 env:
   GHCR_OWNER: ${{ github.repository_owner }}
   IMAGE_TAG: ${{ github.sha }}
-  POSTGRES_PASSWORD: ci-postgres-password
-  KEYCLOAK_ADMIN: ci-admin
-  KEYCLOAK_ADMIN_PASSWORD: ci-admin-password
-  KEYCLOAK_CLIENT_SECRET: ci-client-secret
+  POSTGRES_PASSWORD: performance-postgres-password
+  KEYCLOAK_ADMIN: performance-admin
+  KEYCLOAK_ADMIN_PASSWORD: performance-admin-password
+  KEYCLOAK_CLIENT_SECRET: performance-client-secret
   KEYCLOAK_TEST_USER: performance-user
-  KEYCLOAK_TEST_PASSWORD: ci-test-password
+  KEYCLOAK_TEST_PASSWORD: performance-test-password
 
 jobs:
-  build:
+  performance:
+    name: ${{ matrix.profile }} performance profile
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        profile: [load, stress]
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Set up Java 17
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '17'
-          cache: maven
-
-      - name: Build and test with Maven Wrapper
-        run: ./mvnw --batch-mode test
-
-      - name: Set up Node for quality tests
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-
-      - name: Run quality and end-to-end tests
-        run: node --test quality-tests/*.test.mjs
-
-      - name: Start isolated test stack
+      - name: Start isolated performance stack
         run: >-
           docker compose
           -f infrastructure/docker-compose/common.yml
@@ -54,18 +41,18 @@ jobs:
           -f infrastructure/docker-compose/services.yml
           up --build --wait
 
-      - name: Run smoke performance profile
-        run: ./scripts/run-performance.sh smoke performance/results
+      - name: Run ${{ matrix.profile }} profile
+        run: ./scripts/run-performance.sh ${{ matrix.profile }} performance/results
 
-      - name: Upload smoke performance reports
+      - name: Upload ${{ matrix.profile }} performance reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: smoke-performance-reports
-          path: performance/results/
+          name: ${{ matrix.profile }}-performance-reports
+          path: performance/results/${{ matrix.profile }}-*.json
           if-no-files-found: warn
 
-      - name: Stop isolated test stack
+      - name: Stop isolated performance stack
         if: always()
         run: >-
           docker compose
