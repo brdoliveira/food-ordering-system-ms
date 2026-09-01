@@ -2,7 +2,9 @@ DROP SCHEMA IF EXISTS "order" CASCADE;
 
 CREATE SCHEMA "order";
 
+SELECT pg_advisory_lock(hashtext('food-ordering.uuid-ossp'));
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+SELECT pg_advisory_unlock(hashtext('food-ordering.uuid-ossp'));
 
 DROP TYPE IF EXISTS order_status;
 CREATE TYPE order_status AS ENUM ('PENDING', 'PAID', 'APPROVED', 'CANCELLED', 'CANCELLING');

@@ -48,7 +48,9 @@ if [[ -z "${client_uuid}" ]]; then
   "${kcadm}" create clients \
     -r "${KEYCLOAK_REALM}" \
     -s "clientId=${KEYCLOAK_CLIENT_ID}" \
+    -s protocol=openid-connect \
     -s enabled=true \
+    -s protocol=openid-connect \
     -s publicClient=false \
     -s standardFlowEnabled=true \
     -s directAccessGrantsEnabled=true \
@@ -71,15 +73,27 @@ else
     -s "secret=${KEYCLOAK_CLIENT_SECRET}"
 fi
 
-for scope in customers:write orders:read orders:write; do
-  scope_uuid="$(
+find_client_scope_uuid() {
+  local expected_scope="$1"
+  local candidate_id
+  local candidate_name
+
+  while IFS=, read -r candidate_id candidate_name; do
+    if [[ "${candidate_name}" == "${expected_scope}" ]]; then
+      printf '%s\n' "${candidate_id}"
+      return 0
+    fi
+  done < <(
     "${kcadm}" get client-scopes \
       -r "${KEYCLOAK_REALM}" \
-      -q "name=${scope}" \
-      --fields id \
+      --fields id,name \
       --format csv \
-      --noquotes | head -n 1
-  )"
+      --noquotes
+  )
+}
+
+for scope in customers.write orders.read orders.write; do
+  scope_uuid="$(find_client_scope_uuid "${scope}")"
 
   if [[ -z "${scope_uuid}" ]]; then
     "${kcadm}" create client-scopes \
@@ -87,14 +101,7 @@ for scope in customers:write orders:read orders:write; do
       -s "name=${scope}" \
       -s protocol=openid-connect \
       -s 'attributes."include.in.token.scope"=true'
-    scope_uuid="$(
-      "${kcadm}" get client-scopes \
-        -r "${KEYCLOAK_REALM}" \
-        -q "name=${scope}" \
-        --fields id \
-        --format csv \
-        --noquotes | head -n 1
-    )"
+    scope_uuid="$(find_client_scope_uuid "${scope}")"
   fi
 
   "${kcadm}" update "clients/${client_uuid}/default-client-scopes/${scope_uuid}" \
@@ -116,7 +123,24 @@ if [[ -z "${user_uuid}" ]]; then
     -r "${KEYCLOAK_REALM}" \
     -s "username=${KEYCLOAK_TEST_USER}" \
     -s enabled=true
+  user_uuid="$(
+    "${kcadm}" get users \
+      -r "${KEYCLOAK_REALM}" \
+      -q "username=${KEYCLOAK_TEST_USER}" \
+      --fields id \
+      --format csv \
+      --noquotes | head -n 1
+  )"
 fi
+
+"${kcadm}" update "users/${user_uuid}" \
+  -r "${KEYCLOAK_REALM}" \
+  -s enabled=true \
+  -s firstName=E2E \
+  -s lastName=User \
+  -s "email=${KEYCLOAK_TEST_USER}@example.test" \
+  -s emailVerified=true \
+  -s 'requiredActions=[]'
 
 "${kcadm}" set-password \
   -r "${KEYCLOAK_REALM}" \

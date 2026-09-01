@@ -14,7 +14,7 @@ A entrega adiciona uma stack executável por Compose e uma camada de testes que 
 ## Segurança
 
 - Customer e Order atuam como OAuth2 Resource Servers e validam JWTs emitidos pelo Keycloak.
-- Escopos: `customers:write`, `orders:write` e `orders:read`.
+- Escopos: `customers.write`, `orders.write` e `orders.read` (ponto evita a sintaxe de escopo parametrizado do Keycloak 26).
 - Endpoints de negócio exigem autenticação e o escopo correspondente.
 - Health/liveness/readiness permanecem públicos; métricas exigem autenticação ou ficam restritas à rede interna da stack.
 

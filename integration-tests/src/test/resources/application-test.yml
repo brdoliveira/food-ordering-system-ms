@@ -1,0 +1,19 @@
+e2e:
+  compose:
+    files:
+      - infrastructure/docker-compose/common.yml
+      - infrastructure/docker-compose/zookeeper.yml
+      - infrastructure/docker-compose/kafka_cluster.yml
+      - infrastructure/docker-compose/init_kafka.yml
+      - infrastructure/docker-compose/keycloak.yml
+      - infrastructure/docker-compose/services.yml
+    startup-timeout-minutes: 25
+  keycloak:
+    realm: food-ordering-e2e
+    client-id: food-ordering-e2e-client
+    username: e2e-user
+    token-host: keycloak:8080
+  polling:
+    projection-timeout-seconds: 30
+    saga-timeout-seconds: 60
+    interval-millis: 1000

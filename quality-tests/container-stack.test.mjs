@@ -51,6 +51,13 @@ test('@spec:AC-008 stack completa fica pronta por um único comando Compose', ()
   }
   assert.match(combinedSource, /^networks:\s*\n  food-ordering-system:/m);
   assert.match(readRepositoryFile('infrastructure/docker-compose/keycloak.yml'), /configure-realm\.sh/);
+  const realmConfiguration = readRepositoryFile('infrastructure/keycloak/configure-realm.sh');
+  assert.match(realmConfiguration, /--fields id,name/);
+  assert.match(realmConfiguration, /while IFS=, read -r candidate_id candidate_name/);
+  assert.doesNotMatch(realmConfiguration, /\bawk\b/);
+  assert.doesNotMatch(realmConfiguration, /-q "name=\$\{scope\}"/);
+  assert.match(realmConfiguration, /requiredActions=\[\]/);
+  assert.match(realmConfiguration, /emailVerified=true/);
 
   if (!dockerComposeIsAvailable()) return;
 
@@ -93,6 +100,11 @@ test('@spec:AC-008 stack completa fica pronta por um único comando Compose', ()
     assert.match(service.healthcheck.test.join(' '), /SERVER_PORT/);
     assert.ok(service.ports?.length, `${serviceName} deve publicar sua porta HTTP`);
   }
+
+  const kafkaInitializer = config.services['init-kafka'];
+  assert.deepEqual(kafkaInitializer.entrypoint, ['/bin/bash', '-euc']);
+  assert.equal(kafkaInitializer.command.length, 1, 'script Kafka deve ser um único argumento do bash');
+  assert.match(kafkaInitializer.command[0], /for topic in/);
 });
 
 test('@spec:AC-017 imagens imutáveis dos quatro serviços estão prontas para publicação no GHCR', () => {
@@ -101,7 +113,9 @@ test('@spec:AC-017 imagens imutáveis dos quatro serviços estão prontas para p
 
   assert.match(dockerfile, /^FROM .+ AS build$/m);
   assert.match(dockerfile, /^ARG SERVICE_MODULE$/m);
+  assert.match(dockerfile, /--mount=type=cache,target=\/root\/\.m2,sharing=locked/);
   assert.match(dockerfile, /^USER app:app$/m);
+  assert.match(dockerfile, /--add-opens=java\.base\/java\.nio=ALL-UNNAMED/);
   assert.match(dockerfile, /^HEALTHCHECK /m);
   assert.match(dockerfile, /org\.opencontainers\.image\.revision="\$\{BUILD_REVISION\}"/);
   assert.doesNotMatch(dockerfile, /:latest(?:\s|$)/);

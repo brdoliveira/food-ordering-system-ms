@@ -2,7 +2,9 @@ DROP SCHEMA IF EXISTS restaurant CASCADE;
 
 CREATE SCHEMA restaurant;
 
+SELECT pg_advisory_lock(hashtext('food-ordering.uuid-ossp'));
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+SELECT pg_advisory_unlock(hashtext('food-ordering.uuid-ossp'));
 
 DROP TABLE IF EXISTS restaurant.restaurants CASCADE;
 

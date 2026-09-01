@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1.7
 FROM maven:3.9.9-eclipse-temurin-17-alpine AS build
 
 WORKDIR /workspace
@@ -6,7 +7,8 @@ ARG SERVICE_MODULE
 COPY . .
 
 RUN test -n "${SERVICE_MODULE}"
-RUN mvn --batch-mode --no-transfer-progress \
+RUN --mount=type=cache,target=/root/.m2,sharing=locked \
+    mvn --batch-mode --no-transfer-progress \
     -pl "${SERVICE_MODULE}" -am \
     -DskipTests package
 RUN set -eux; \
@@ -38,4 +40,6 @@ USER app:app
 HEALTHCHECK --interval=10s --timeout=5s --start-period=30s --retries=10 \
   CMD nc -z -w 3 127.0.0.1 "${SERVER_PORT}" || exit 1
 
-ENTRYPOINT ["java", "-jar", "/app/application.jar"]
+# Kafka 3.3 falls back to the pure-Java Snappy implementation on musl/Alpine.
+# Java 17 otherwise blocks the direct-buffer access required by that fallback.
+ENTRYPOINT ["java", "--add-opens=java.base/java.nio=ALL-UNNAMED", "-jar", "/app/application.jar"]

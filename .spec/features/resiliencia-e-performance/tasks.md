@@ -16,10 +16,10 @@
 - Esforço: alto
 - Notas: depende de T-008 para as dependências Maven; usar Resource Server JWT, escopos mínimos, health público, métricas Prometheus e correlação trace/span.
 
-## T-010 — Criar testes ponta a ponta herméticos [pendente]
+## T-010 — Criar testes ponta a ponta herméticos [concluída]
 
 - Refs: US-006, AC-011, AC-012
-- Arquivos: pom.xml, integration-tests/pom.xml, integration-tests/src/test/java/com/food/ordering/system/e2e/FullOrderFlowIT.java, integration-tests/src/test/java/com/food/ordering/system/e2e/support/StackEnvironment.java, integration-tests/src/test/resources/application-test.yml, quality-tests/end-to-end.test.mjs
+- Arquivos: pom.xml, integration-tests/pom.xml, integration-tests/src/test/java/com/food/ordering/system/e2e/FullOrderFlowIT.java, integration-tests/src/test/java/com/food/ordering/system/e2e/support/StackEnvironment.java, integration-tests/src/test/resources/application-test.yml, quality-tests/end-to-end.test.mjs, Dockerfile, infrastructure/docker-compose/init_kafka.yml, infrastructure/keycloak/configure-realm.sh, customer-service/customer-container/src/main/java/com/food/ordering/system/customer/service/container/config/SecurityConfig.java, order-service/order-container/src/main/java/com/food/ordering/system/order/service/container/config/SecurityConfig.java, customer-service/customer-container/src/main/resources/init-schema.sql, order-service/order-container/src/main/resources/init-schema.sql, payment-service/payment-container/src/main/resources/init-schema.sql, restaurant-service/restaurant-container/src/main/resources/init-schema.sql, quality-tests/container-stack.test.mjs, quality-tests/security-observability.test.mjs, .spec/features/resiliencia-e-performance/design.md
 - Modelo: gpt-5.6-sol
 - Esforço: xalto
 - Notas: depende de T-008 e T-009; controlar a stack pelo Testcontainers, obter JWT no Keycloak, provar aprovação e compensação consultando a API até o estado final.

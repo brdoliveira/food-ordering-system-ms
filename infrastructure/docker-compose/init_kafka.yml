@@ -8,24 +8,25 @@ services:
         condition: service_healthy
       kafka-broker-3:
         condition: service_healthy
-    entrypoint: ["/bin/bash", "-ec"]
-    command: |
-      for topic in \
-        payment-request \
-        payment-response \
-        restaurant-approval-request \
-        restaurant-approval-response \
-        customer
-      do
-        kafka-topics \
-          --bootstrap-server kafka-broker-1:9092 \
-          --create \
-          --if-not-exists \
-          --topic "$${topic}" \
-          --replication-factor 3 \
-          --partitions 3
-      done
-      kafka-topics --bootstrap-server kafka-broker-1:9092 --list
+    entrypoint: ["/bin/bash", "-euc"]
+    command:
+      - |
+        for topic in \
+          payment-request \
+          payment-response \
+          restaurant-approval-request \
+          restaurant-approval-response \
+          customer
+        do
+          kafka-topics \
+            --bootstrap-server kafka-broker-1:9092 \
+            --create \
+            --if-not-exists \
+            --topic "$${topic}" \
+            --replication-factor 3 \
+            --partitions 3
+        done
+        kafka-topics --bootstrap-server kafka-broker-1:9092 --list
     restart: "no"
     networks:
       - food-ordering-system

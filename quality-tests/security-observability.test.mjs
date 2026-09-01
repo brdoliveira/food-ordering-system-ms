@@ -12,7 +12,7 @@ const protectedServices = [
     security: 'customer-service/customer-container/src/main/java/com/food/ordering/system/customer/service/container/config/SecurityConfig.java',
     application: 'customer-service/customer-container/src/main/resources/application.yml',
     requiredRules: [
-      /requestMatchers\(HttpMethod\.POST, "\/customers"\)\.hasAuthority\("SCOPE_customers:write"\)/,
+      /requestMatchers\(HttpMethod\.POST, "\/customers"\)\.hasAuthority\("SCOPE_customers\.write"\)/,
     ],
   },
   {
@@ -20,8 +20,8 @@ const protectedServices = [
     security: 'order-service/order-container/src/main/java/com/food/ordering/system/order/service/container/config/SecurityConfig.java',
     application: 'order-service/order-container/src/main/resources/application.yml',
     requiredRules: [
-      /requestMatchers\(HttpMethod\.POST, "\/orders"\)\.hasAuthority\("SCOPE_orders:write"\)/,
-      /requestMatchers\(HttpMethod\.GET, "\/orders\/\*\*"\)\.hasAuthority\("SCOPE_orders:read"\)/,
+      /requestMatchers\(HttpMethod\.POST, "\/orders"\)\.hasAuthority\("SCOPE_orders\.write"\)/,
+      /requestMatchers\(HttpMethod\.GET, "\/orders\/\*\*"\)\.hasAuthority\("SCOPE_orders\.read"\)/,
     ],
   },
 ];
