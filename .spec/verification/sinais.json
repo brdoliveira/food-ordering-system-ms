@@ -122,9 +122,9 @@
       "codigo": "VERIFY_OBSOLETO",
       "feature": "project-hardening",
       "ref": "—",
-      "ocorrencias": 3,
+      "ocorrencias": 4,
       "primeiraVez": "2026-08-31T22:32:36.547Z",
-      "ultimaVez": "2026-09-01T20:45:36.288Z",
+      "ultimaVez": "2026-09-01T20:50:51.601Z",
       "gitRev": "1afeaac"
     },
     "STATUS_INVALIDO::resiliencia-e-performance::.spec\\features\\resiliencia-e-performance\\spec.md": {
@@ -288,6 +288,42 @@
       "primeiraVez": "2026-09-01T01:54:55.184Z",
       "ultimaVez": "2026-09-01T02:29:28.341Z",
       "gitRev": "1afeaac"
+    },
+    "VERIFY_OBSOLETO::resiliencia-e-performance::—": {
+      "codigo": "VERIFY_OBSOLETO",
+      "feature": "resiliencia-e-performance",
+      "ref": "—",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-09-01T20:50:51.602Z",
+      "ultimaVez": "2026-09-01T20:50:51.602Z",
+      "gitRev": null
+    },
+    "VERIFY_FALHOU::resiliencia-e-performance::AC-011": {
+      "codigo": "VERIFY_FALHOU",
+      "feature": "resiliencia-e-performance",
+      "ref": "AC-011",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-09-01T20:54:51.570Z",
+      "ultimaVez": "2026-09-01T20:54:51.570Z",
+      "gitRev": null
+    },
+    "VERIFY_FALHOU::resiliencia-e-performance::AC-012": {
+      "codigo": "VERIFY_FALHOU",
+      "feature": "resiliencia-e-performance",
+      "ref": "AC-012",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-09-01T20:54:51.570Z",
+      "ultimaVez": "2026-09-01T20:54:51.570Z",
+      "gitRev": null
+    },
+    "VERIFY_FALHOU::project-hardening::AC-001": {
+      "codigo": "VERIFY_FALHOU",
+      "feature": "project-hardening",
+      "ref": "AC-001",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-09-01T22:01:28.886Z",
+      "ultimaVez": "2026-09-01T22:01:28.886Z",
+      "gitRev": null
     }
   }
 }
