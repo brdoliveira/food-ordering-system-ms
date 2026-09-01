@@ -1,0 +1,14 @@
+{
+  "restaurantId": "d215b5f8-0249-4dc5-89a3-51fd148cfb45",
+  "item": {
+    "productId": "d215b5f8-0249-4dc5-89a3-51fd148cfb48",
+    "quantity": 1,
+    "price": 50.0,
+    "subTotal": 50.0
+  },
+  "address": {
+    "street": "Performance Street",
+    "postalCode": "01001000",
+    "city": "Sao Paulo"
+  }
+}

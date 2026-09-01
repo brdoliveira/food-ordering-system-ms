@@ -23,3 +23,6 @@ infrastructure/**/data/
 postgres-data/
 kafka-data/
 *.log
+
+# Generated performance reports
+performance/results/

@@ -24,10 +24,10 @@
 - Esforço: xalto
 - Notas: depende de T-008 e T-009; controlar a stack pelo Testcontainers, obter JWT no Keycloak, provar aprovação e compensação consultando a API até o estado final.
 
-## T-011 — Implementar smoke, carga e estresse com k6 [pendente]
+## T-011 — Implementar smoke, carga e estresse com k6 [concluída]
 
 - Refs: US-007, AC-013, AC-014, AC-015
-- Arquivos: performance/k6/order-flow.js, performance/k6/profiles.js, performance/k6/lib/auth.js, performance/k6/lib/orders.js, performance/k6/data/orders.json, scripts/run-performance.ps1, scripts/run-performance.sh, quality-tests/performance-profiles.test.mjs
+- Arquivos: performance/k6/order-flow.js, performance/k6/profiles.js, performance/k6/lib/auth.js, performance/k6/lib/orders.js, performance/k6/data/orders.json, scripts/run-performance.ps1, scripts/run-performance.sh, quality-tests/performance-profiles.test.mjs, .gitignore
 - Modelo: gpt-5.6-terra
 - Esforço: alto
 - Notas: depende da stack de T-008/T-009; executar k6 por container, validar preflight, usar dados únicos e salvar resumo JSON e relatório para cada perfil.
