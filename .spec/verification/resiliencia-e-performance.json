@@ -1,0 +1,22 @@
+{
+  "feature": "resiliencia-e-performance",
+  "timestamp": "2026-09-01T02:29:27.621Z",
+  "gitRev": "1afeaac",
+  "command": "node --test --test-reporter=tap \"quality-tests/*.test.mjs\"",
+  "reporter": "tap",
+  "exitCode": 1,
+  "testsParsed": 9,
+  "results": {
+    "AC-008": {
+      "status": "pass",
+      "testName": "@spec:AC-008 stack completa fica pronta por um único comando Compose",
+      "method": "tap"
+    },
+    "AC-017": {
+      "status": "pass",
+      "testName": "@spec:AC-017 imagens imutáveis dos quatro serviços estão prontas para publicação no GHCR",
+      "method": "tap"
+    }
+  },
+  "principles": {}
+}
