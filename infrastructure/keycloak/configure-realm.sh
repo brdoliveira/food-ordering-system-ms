@@ -45,25 +45,17 @@ client_uuid="$(
 )"
 
 if [[ -z "${client_uuid}" ]]; then
-  "${kcadm}" create clients \
+  client_uuid="$("${kcadm}" create clients \
     -r "${KEYCLOAK_REALM}" \
+    -i \
     -s "clientId=${KEYCLOAK_CLIENT_ID}" \
     -s protocol=openid-connect \
     -s enabled=true \
-    -s protocol=openid-connect \
     -s publicClient=false \
     -s standardFlowEnabled=true \
     -s directAccessGrantsEnabled=true \
     -s serviceAccountsEnabled=true \
-    -s "secret=${KEYCLOAK_CLIENT_SECRET}"
-  client_uuid="$(
-    "${kcadm}" get clients \
-      -r "${KEYCLOAK_REALM}" \
-      -q "clientId=${KEYCLOAK_CLIENT_ID}" \
-      --fields id \
-      --format csv \
-      --noquotes | head -n 1
-  )"
+    -s "secret=${KEYCLOAK_CLIENT_SECRET}")"
 else
   "${kcadm}" update "clients/${client_uuid}" \
     -r "${KEYCLOAK_REALM}" \
@@ -96,12 +88,12 @@ for scope in customers.write orders.read orders.write; do
   scope_uuid="$(find_client_scope_uuid "${scope}")"
 
   if [[ -z "${scope_uuid}" ]]; then
-    "${kcadm}" create client-scopes \
+    scope_uuid="$("${kcadm}" create client-scopes \
       -r "${KEYCLOAK_REALM}" \
+      -i \
       -s "name=${scope}" \
       -s protocol=openid-connect \
-      -s 'attributes."include.in.token.scope"=true'
-    scope_uuid="$(find_client_scope_uuid "${scope}")"
+      -s 'attributes."include.in.token.scope"=true')"
   fi
 
   "${kcadm}" update "clients/${client_uuid}/default-client-scopes/${scope_uuid}" \
@@ -119,18 +111,11 @@ user_uuid="$(
 )"
 
 if [[ -z "${user_uuid}" ]]; then
-  "${kcadm}" create users \
+  user_uuid="$("${kcadm}" create users \
     -r "${KEYCLOAK_REALM}" \
+    -i \
     -s "username=${KEYCLOAK_TEST_USER}" \
-    -s enabled=true
-  user_uuid="$(
-    "${kcadm}" get users \
-      -r "${KEYCLOAK_REALM}" \
-      -q "username=${KEYCLOAK_TEST_USER}" \
-      --fields id \
-      --format csv \
-      --noquotes | head -n 1
-  )"
+    -s enabled=true)"
 fi
 
 "${kcadm}" update "users/${user_uuid}" \

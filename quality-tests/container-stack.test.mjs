@@ -58,6 +58,9 @@ test('@spec:AC-008 stack completa fica pronta por um único comando Compose', ()
   assert.doesNotMatch(realmConfiguration, /-q "name=\$\{scope\}"/);
   assert.match(realmConfiguration, /requiredActions=\[\]/);
   assert.match(realmConfiguration, /emailVerified=true/);
+  assert.match(realmConfiguration, /client_uuid="\$\("\$\{kcadm\}" create clients[\s\S]*?-i/);
+  assert.match(realmConfiguration, /scope_uuid="\$\("\$\{kcadm\}" create client-scopes[\s\S]*?-i/);
+  assert.match(realmConfiguration, /user_uuid="\$\("\$\{kcadm\}" create users[\s\S]*?-i/);
 
   if (!dockerComposeIsAvailable()) return;
 
