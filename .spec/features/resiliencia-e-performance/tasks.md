@@ -9,8 +9,7 @@
 - Esforço: alto
 - Notas: gerar jars executáveis, imagens não-root, healthchecks, Keycloak configurado em runtime por variáveis de ambiente e uma rede Compose coerente; não versionar segredos.
 
-## T-009 — Proteger APIs e instrumentar os serviços [pendente]
-
+## T-009 — Proteger APIs e instrumentar os serviços [concluida]
 - Refs: US-005, AC-009, AC-010
 - Arquivos: customer-service/customer-container/src/main/java/com/food/ordering/system/customer/service/container/config/SecurityConfig.java, order-service/order-container/src/main/java/com/food/ordering/system/order/service/container/config/SecurityConfig.java, customer-service/customer-container/src/main/resources/application.yml, order-service/order-container/src/main/resources/application.yml, payment-service/payment-container/src/main/resources/application.yml, restaurant-service/restaurant-container/src/main/resources/application.yml, customer-service/customer-container/src/main/resources/logback-spring.xml, order-service/order-container/src/main/resources/logback-spring.xml, payment-service/payment-container/src/main/resources/logback-spring.xml, restaurant-service/restaurant-container/src/main/resources/logback-spring.xml, quality-tests/security-observability.test.mjs
 - Modelo: gpt-5.6-sol
