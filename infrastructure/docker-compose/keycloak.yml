@@ -1,0 +1,40 @@
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0.7
+    hostname: keycloak
+    command: ["start-dev", "--health-enabled=true"]
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KEYCLOAK_ADMIN:?KEYCLOAK_ADMIN must be set}
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:?KEYCLOAK_ADMIN_PASSWORD must be set}
+      KC_HEALTH_ENABLED: "true"
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c 'exec 3<>/dev/tcp/127.0.0.1/9000'"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 20s
+    networks:
+      - food-ordering-system
+
+  keycloak-config:
+    image: quay.io/keycloak/keycloak:26.0.7
+    depends_on:
+      keycloak:
+        condition: service_healthy
+    environment:
+      KEYCLOAK_URL: http://keycloak:8080
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN:?KEYCLOAK_ADMIN must be set}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:?KEYCLOAK_ADMIN_PASSWORD must be set}
+      KEYCLOAK_REALM: ${KEYCLOAK_REALM:-food-ordering}
+      KEYCLOAK_CLIENT_ID: ${KEYCLOAK_CLIENT_ID:-food-ordering-client}
+      KEYCLOAK_CLIENT_SECRET: ${KEYCLOAK_CLIENT_SECRET:?KEYCLOAK_CLIENT_SECRET must be set}
+      KEYCLOAK_TEST_USER: ${KEYCLOAK_TEST_USER:?KEYCLOAK_TEST_USER must be set}
+      KEYCLOAK_TEST_PASSWORD: ${KEYCLOAK_TEST_PASSWORD:?KEYCLOAK_TEST_PASSWORD must be set}
+    entrypoint: ["/bin/bash", "/opt/keycloak/configure-realm.sh"]
+    volumes:
+      - ../keycloak/configure-realm.sh:/opt/keycloak/configure-realm.sh:ro
+    restart: "no"
+    networks:
+      - food-ordering-system

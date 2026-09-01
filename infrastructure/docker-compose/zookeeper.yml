@@ -1,10 +1,7 @@
-version: '3.7'
 services:
   zookeeper:
-    image: confluentinc/cp-zookeeper:${KAFKA_VERSION:-latest}
+    image: confluentinc/cp-zookeeper:7.6.1
     hostname: zookeeper
-    ports:
-      - "2181:2181"
     environment:
       ZOOKEEPER_SERVER_ID: 1
       ZOOKEEPER_CLIENT_PORT: 2181
@@ -13,8 +10,16 @@ services:
       ZOOKEEPER_SYNC_LIMIT: 2
       ZOOKEEPER_SERVERS: zookeeper:2888:3888
       KAFKA_OPTS: "-Dzookeeper.4lw.commands.whitelist=ruok"
+    ports:
+      - "2181:2181"
     volumes:
-      - "./volumes/zookeeper/data:/var/lib/zookeeper/data"
-      - "./volumes/zookeeper/transactions:/var/lib/zookeeper/log"
+      - zookeeper-data:/var/lib/zookeeper/data
+      - zookeeper-log:/var/lib/zookeeper/log
+    healthcheck:
+      test: ["CMD-SHELL", "echo ruok | nc localhost 2181 | grep -q imok"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
     networks:
       - food-ordering-system

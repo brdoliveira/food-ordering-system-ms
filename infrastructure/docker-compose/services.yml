@@ -1,0 +1,104 @@
+x-service-common: &service-common
+  restart: unless-stopped
+  environment: &service-environment
+    DB_USERNAME: ${POSTGRES_USER:-postgres}
+    DB_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+    KAFKA_BOOTSTRAP_SERVERS: kafka-broker-1:9092,kafka-broker-2:9092,kafka-broker-3:9092
+    KAFKA_SCHEMA_REGISTRY_URL: http://schema-registry:8081
+    SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://keycloak:8080/realms/${KEYCLOAK_REALM:-food-ordering}
+    MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: health,info,prometheus
+    MANAGEMENT_ENDPOINT_HEALTH_PROBES_ENABLED: "true"
+  depends_on: &service-dependencies
+    postgres:
+      condition: service_healthy
+    schema-registry:
+      condition: service_healthy
+    init-kafka:
+      condition: service_completed_successfully
+    keycloak-config:
+      condition: service_completed_successfully
+  healthcheck:
+    test: ["CMD-SHELL", "nc -z -w 3 127.0.0.1 $${SERVER_PORT}"]
+    interval: 10s
+    timeout: 5s
+    retries: 10
+    start_period: 30s
+  networks:
+    - food-ordering-system
+
+services:
+  customer-service:
+    <<: *service-common
+    image: ghcr.io/${GHCR_OWNER:?GHCR_OWNER must be set}/food-ordering-customer:${IMAGE_TAG:?IMAGE_TAG must be an immutable SHA or version tag}
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+      args:
+        SERVICE_MODULE: customer-service/customer-container
+        SERVICE_NAME: customer-service
+        SERVICE_PORT: 8184
+        BUILD_REVISION: ${IMAGE_TAG:?IMAGE_TAG must be an immutable SHA or version tag}
+        GHCR_OWNER: ${GHCR_OWNER:?GHCR_OWNER must be set}
+    environment:
+      <<: *service-environment
+      DB_URL: jdbc:postgresql://postgres:5432/postgres?currentSchema=customer&binaryTransfer=true&reWriteBatchedInserts=true
+    depends_on: *service-dependencies
+    ports:
+      - "8184:8184"
+
+  order-service:
+    <<: *service-common
+    image: ghcr.io/${GHCR_OWNER:?GHCR_OWNER must be set}/food-ordering-order:${IMAGE_TAG:?IMAGE_TAG must be an immutable SHA or version tag}
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+      args:
+        SERVICE_MODULE: order-service/order-container
+        SERVICE_NAME: order-service
+        SERVICE_PORT: 8181
+        BUILD_REVISION: ${IMAGE_TAG:?IMAGE_TAG must be an immutable SHA or version tag}
+        GHCR_OWNER: ${GHCR_OWNER:?GHCR_OWNER must be set}
+    environment:
+      <<: *service-environment
+      DB_URL: jdbc:postgresql://postgres:5432/postgres?currentSchema=order&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified
+    depends_on: *service-dependencies
+    ports:
+      - "8181:8181"
+
+  payment-service:
+    <<: *service-common
+    image: ghcr.io/${GHCR_OWNER:?GHCR_OWNER must be set}/food-ordering-payment:${IMAGE_TAG:?IMAGE_TAG must be an immutable SHA or version tag}
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+      args:
+        SERVICE_MODULE: payment-service/payment-container
+        SERVICE_NAME: payment-service
+        SERVICE_PORT: 8182
+        BUILD_REVISION: ${IMAGE_TAG:?IMAGE_TAG must be an immutable SHA or version tag}
+        GHCR_OWNER: ${GHCR_OWNER:?GHCR_OWNER must be set}
+    environment:
+      <<: *service-environment
+      DB_URL: jdbc:postgresql://postgres:5432/postgres?currentSchema=payment&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified
+    depends_on: *service-dependencies
+    ports:
+      - "8182:8182"
+
+  restaurant-service:
+    <<: *service-common
+    image: ghcr.io/${GHCR_OWNER:?GHCR_OWNER must be set}/food-ordering-restaurant:${IMAGE_TAG:?IMAGE_TAG must be an immutable SHA or version tag}
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+      args:
+        SERVICE_MODULE: restaurant-service/restaurant-container
+        SERVICE_NAME: restaurant-service
+        SERVICE_PORT: 8183
+        BUILD_REVISION: ${IMAGE_TAG:?IMAGE_TAG must be an immutable SHA or version tag}
+        GHCR_OWNER: ${GHCR_OWNER:?GHCR_OWNER must be set}
+    environment:
+      <<: *service-environment
+      DB_URL: jdbc:postgresql://postgres:5432/postgres?currentSchema=restaurant&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified
+    depends_on: *service-dependencies
+    ports:
+      - "8183:8183"

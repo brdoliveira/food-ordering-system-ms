@@ -1,30 +1,31 @@
-version: '3.7'
 services:
   init-kafka:
-    image: confluentinc/cp-kafka:${KAFKA_VERSION}
-    entrypoint: [ '/bin/sh', '-c' ]
+    image: confluentinc/cp-kafka:7.6.1
+    depends_on:
+      kafka-broker-1:
+        condition: service_healthy
+      kafka-broker-2:
+        condition: service_healthy
+      kafka-broker-3:
+        condition: service_healthy
+    entrypoint: ["/bin/bash", "-ec"]
     command: |
-      "
-      # block until kafka is reachable
+      for topic in \
+        payment-request \
+        payment-response \
+        restaurant-approval-request \
+        restaurant-approval-response \
+        customer
+      do
+        kafka-topics \
+          --bootstrap-server kafka-broker-1:9092 \
+          --create \
+          --if-not-exists \
+          --topic "$${topic}" \
+          --replication-factor 3 \
+          --partitions 3
+      done
       kafka-topics --bootstrap-server kafka-broker-1:9092 --list
-
-      echo -e 'Deleting kafka topics'
-      kafka-topics --bootstrap-server kafka-broker-1:9092 --topic payment-request --delete --if-exists
-      kafka-topics --bootstrap-server kafka-broker-1:9092 --topic payment-response --delete --if-exists
-      kafka-topics --bootstrap-server kafka-broker-1:9092 --topic restaurant-approval-request --delete --if-exists
-      kafka-topics --bootstrap-server kafka-broker-1:9092 --topic restaurant-approval-response --delete --if-exists
-      kafka-topics --bootstrap-server kafka-broker-1:9092 --topic customer --delete --if-exists
-
-      echo -e 'Creating kafka topics'
-      kafka-topics --bootstrap-server kafka-broker-1:9092 --create --if-not-exists --topic payment-request --replication-factor 3 --partitions 3
-      kafka-topics --bootstrap-server kafka-broker-1:9092 --create --if-not-exists --topic payment-response --replication-factor 3 --partitions 3
-      kafka-topics --bootstrap-server kafka-broker-1:9092 --create --if-not-exists --topic restaurant-approval-request --replication-factor 3 --partitions 3
-      kafka-topics --bootstrap-server kafka-broker-1:9092 --create --if-not-exists --topic restaurant-approval-response --replication-factor 3 --partitions 3
-      kafka-topics --bootstrap-server kafka-broker-1:9092 --create --if-not-exists --topic customer --replication-factor 3 --partitions 3
-
-
-      echo -e 'Successfully created the following topics:'
-      kafka-topics --bootstrap-server kafka-broker-1:9092 --list
-      "
+    restart: "no"
     networks:
       - food-ordering-system

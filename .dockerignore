@@ -1,0 +1,14 @@
+.git
+.github
+.idea
+.vscode
+.spec
+**/target
+**/*.iml
+infrastructure/docker-compose/volumes
+quality-tests
+performance
+*.log
+.env
+.env.*
+!.env.example
